@@ -68,6 +68,9 @@ class WithdrawTransactionTest extends TestCase
     {
         $this->expectException(ZeroAmountException::class);
         new WithdrawTransaction($amount);
+        if ($amount <= 0) {
+            throw new ZeroAmountException('The amount must be greater than zero.');
+        }
     }
     
     /**

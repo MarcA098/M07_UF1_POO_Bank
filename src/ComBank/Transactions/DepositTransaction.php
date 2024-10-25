@@ -10,9 +10,14 @@
 use ComBank\Bank\Contracts\BackAccountInterface;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
 
-class DepositTransaction 
+class DepositTransaction extends BaseTransaction implements BankTransactionInterface
 {
+    public function applyTransaction(BackAccountInterface $account) : float{
+        return $account->getBalance() + $this->getAmount();
+    }
 
-
+    public function getTransactionInfo() : string{
+        return "DEPOSIT_TRANSACTION";
+    }
    
 }

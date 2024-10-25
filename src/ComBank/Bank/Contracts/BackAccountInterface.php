@@ -16,6 +16,7 @@ interface BackAccountInterface
 {
     const STATUS_OPEN = 'OPEN';
     const STATUS_CLOSED = 'CLOSED';
-
-   
+    
+    public function getBalance(): float;
+    public function getOverdraft(): OverdraftInterface;
 }

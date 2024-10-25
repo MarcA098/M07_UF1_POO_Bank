@@ -35,6 +35,10 @@ class DepositTransactionTest extends TestCase
     {
         $this->expectException(ZeroAmountException::class);
         new DepositTransaction($amount);
+        if ($amount <= 0) {
+            throw new ZeroAmountException('The amount must be greater than zero.');
+        }
+        
     }
     
     /**

@@ -7,9 +7,9 @@ use ComBank\Exceptions\BankAccountException;
 use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Transactions\DepositTransaction;
 use ComBank\Transactions\WithdrawTransaction;
-
 class BankAccountTest extends TestCase
 {
+    
     // Test that a new BankAccount is initialized with the correct balance
     public function testInitialBalanceIsSetCorrectly(): void
     {
