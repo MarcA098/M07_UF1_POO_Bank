@@ -21,10 +21,15 @@ use ComBank\Transactions\DepositTransaction;
 use Exception;
 
 class BankAccount implements BackAccountInterface {
-    // Atributes
-    private float $balance;
-    private String $status;
-    private OverdraftInterface $overdraft;
+    // Atributes 
+    // Cambiados de privados a protected
+    protected float $balance;
+    protected String $status;
+    protected OverdraftInterface $overdraft;
+
+    // NEW
+    protected person $Holder;
+    protected float $currency;
     
 
     
@@ -58,10 +63,10 @@ class BankAccount implements BackAccountInterface {
                 $this->balance = $newBalance;
             }
     }
-    public function openAccount(): bool {
+    public function isOpen(): bool { // He cambiado el nombre del método porque creo que isOpen es lo mismo que open account 
         return $this->status === BackAccountInterface::STATUS_OPEN;
     }
-    public function closeAccount(): void {
+    public function closeAccount(): void { // Este sigue igual
         if($this->status == BackAccountInterface::STATUS_OPEN){
             $this->status = BackAccountInterface::STATUS_CLOSED;
         }else{

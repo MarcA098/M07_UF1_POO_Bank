@@ -19,4 +19,15 @@ interface BackAccountInterface
     
     public function getBalance(): float;
     public function getOverdraft(): OverdraftInterface;
+
+    //NEW
+
+    public function transaction(BankTransactionInterface $bankTransactionInterface): void;
+    public function isOpen(): bool;
+    public function reopenAccount(): void;
+    public function closeAccount(): void;
+    public function applyOverdraft(OverdraftInterface $overdraftInterface): void;
+    public function setBalance(float $newBalance): void;
+
+    
 }
