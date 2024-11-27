@@ -15,8 +15,13 @@ use ComBank\Transactions\WithdrawTransaction;
 use ComBank\Exceptions\BankAccountException;
 use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Exceptions\ZeroAmountException;
+use ComBank\Support\Traits\ApiTrait;
+use ComBank\Bank\InternationalBankAccount;
+use ComBank\Bank\NationalBankAccount;
+use ComBank\Bank\Contracts\Person;
 
 require_once 'bootstrap.php';
+
 
 
 //---[Bank account 1]---/
@@ -110,3 +115,90 @@ try {
 } catch (BankAccountException $e) {
     pl($e->getMessage());
 }
+pl('My new balance after withdrawal (-20) with funds : ' . $bankAccount2->getBalance());
+
+// Crea una instancia de BankAccount
+$bankAccount5 = new BankAccount(500.0);
+
+//Validaciones
+
+pl('--------- [Start testing bank national account (no conversion)] --------');
+
+    $nationalAccount = new NationalBankAccount(500 , null, "EUR");
+    pl('My balance '. $nationalAccount->getBalance() .' € ('. $nationalAccount->getCurrency() .')');
+
+    //---[Bank account International]---/
+    // create a new International Account with balance 300
+
+    pl('--------- [Start testing bank International account (Dollar conversion)] --------');
+    $internationalAccount = new InternationalBankAccount(300, null, "EUR");
+
+    pl('My balance '. $internationalAccount->getBalance() . ' € ('. $internationalAccount->getCurrency() .')');
+
+    $currentBalance = $internationalAccount->getBalance();
+    pl('Converting balance to Dollars '. $internationalAccount->convertBalance($currentBalance));
+
+    //---[PERSON'S EMAIL]---/
+    // create a new Person  and test his/her email
+
+    pl('--------- [Start testing EMAIL] --------');
+    $person1 = new Person("john.doe@example.com", "54559040G", "Guillem", null);
+
+    pl('--------- [Start testing EMAIL] --------');
+    $person1 = new Person("john.doe@invalid-email", "54559040G", "Guillem", null);
+
+
+    // Test of different transactions
+     //---[Bank account 3]---/
+    // Account with balance 5000
+
+    pl('--------- [Start testing bank account (Fraud API)] --------');
+    $bankAccount3 = new BankAccount(5001);
+
+    pl(mixed: 'Doing transaction withdrawal (-5001) with current balance : ' . $bankAccount3->getBalance());
+    try{
+        $bankAccount3->transaction(bankTransaction:new WithdrawTransaction(5001) );
+
+    } catch(FailedTransactionException $e){
+        pl($e->getMessage());
+    }
+    pl('My balance '. $bankAccount3->getBalance() . ' € ('. $bankAccount3->getCurrency() .')');
+
+
+    pl(mixed: 'Doing transaction withdrawal (-5000) with current balance : ' . $bankAccount3->getBalance());
+    try{
+        $bankAccount3->transaction(bankTransaction:new WithdrawTransaction(5000) );
+
+    } catch(FailedTransactionException $e){
+        pl($e->getMessage());
+    }
+
+    pl('My balance '. $bankAccount3->getBalance() . ' € ('. $bankAccount3->getCurrency() .')');
+
+
+    pl(mixed: 'Doing transaction deposit (+20000) with current balance : ' . $bankAccount3->getBalance());
+    try{
+        $bankAccount3->transaction(bankTransaction:new DepositTransaction(20000) );
+
+    } catch(FailedTransactionException $e){
+        pl($e->getMessage());
+    }
+    pl('My balance '. $bankAccount3->getBalance() . ' € ('. $bankAccount3->getCurrency() .')');
+
+
+    pl(mixed: 'Doing transaction deposit (+20001) with current balance : ' . $bankAccount3->getBalance());
+    try{
+        $bankAccount3->transaction(bankTransaction:new DepositTransaction(20001) );
+
+    } catch(FailedTransactionException $e){
+        pl($e->getMessage());
+    }
+    pl('My balance '. $bankAccount3->getBalance() . ' € ('. $bankAccount3->getCurrency() .')');
+
+
+
+
+
+
+
+

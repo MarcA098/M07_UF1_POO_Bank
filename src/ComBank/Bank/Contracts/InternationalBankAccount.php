@@ -1,11 +1,15 @@
 <?php namespace ComBank\Bank;
-class InternationalBankAccount extends BankAccount {
-    
-public function getConvertedBalance(): float{
-//TO DO
-}
-public function getConvertedCurrency(): String{
-//TO DO
-}
+use ComBank\Support\Traits\ApiTrait;
 
+class InternationalBankAccount extends BankAccount 
+{
+
+    
+    public function getConvertedBalance(): float{
+        return parent::convertBalance($this->balance);
+    }
+
+    public function getConvertedCurrency(): string{
+        return "USD";
+    }
 }

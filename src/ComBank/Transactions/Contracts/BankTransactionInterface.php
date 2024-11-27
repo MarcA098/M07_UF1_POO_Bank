@@ -11,10 +11,13 @@ use ComBank\Bank\Contracts\BackAccountInterface;
 use ComBank\Exceptions\InvalidOverdraftFundsException;
 interface BankTransactionInterface
 {
+    const TRANSACTION_BLOCKED = 'blocked';
+    const TRANSACTION_ALLOWED = 'allowed';
     public function applyTransaction(BackAccountInterface $account) : float;
 
     public function getTransactionInfo() : string;
 
     public function getAmount() : float;
     
+
 }
