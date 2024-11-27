@@ -142,10 +142,10 @@ pl('--------- [Start testing bank national account (no conversion)] --------');
     // create a new Person  and test his/her email
 
     pl('--------- [Start testing EMAIL] --------');
-    $person1 = new Person("john.doe@example.com", "54559040G", "Guillem", null);
+    $person1 = new Person("john.doe@example.com", "54559040G", "Marc", null);
 
     pl('--------- [Start testing EMAIL] --------');
-    $person1 = new Person("john.doe@invalid-email", "54559040G", "Guillem", null);
+    $person1 = new Person("john.doe@invalid-email", "54559040G", "Marc", null);
 
 
     // Test of different transactions
